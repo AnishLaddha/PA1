@@ -35,7 +35,7 @@ void Array_Shellsort(long *array, int size, long *n_comp)
 	*n_comp = 0;
 	long *sequence = Generate_2p3q_Seq(size, &seq_size);
 	int gap;
-	int temp;
+	long temp;
 	
 	for(int s = 0; s<seq_size; s++)
 	{
