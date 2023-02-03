@@ -39,23 +39,19 @@ void Array_Shellsort(long *array, int size, long *n_comp)
 	
 	for(int s = 0; s<seq_size; s++)
 	{
-		*n_comp += 1;
 		gap = sequence[s];
 		int i,j;
 		for(i = gap; i<size; i++)
 		{
-			*n_comp += 1;
 			temp = array[i];
 			for(j = i; ((j>=gap) && array[j-gap]>temp); j-=gap)
 			{
-				*n_comp += 1;
+				*n_comp += 2;
 				array[j] = array[j-gap];
 			}
-			*n_comp += 1;
+			*n_comp += 2;
 			array[j] = temp;
 		}
-		*n_comp += 1;
 	}
-	*n_comp += 1;
 	free(sequence);
 }

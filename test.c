@@ -12,20 +12,20 @@ int main()
   int data_size;
 
 	FILE *f;
-	f = fopen("examples/1K.b", "rb");
+	f = fopen("examples/15.b", "rb");
 	fseek(f,0L, SEEK_END);
 	data_size = ftell(f)/8;
 	fseek(f, 0L, SEEK_SET);
 	fclose(f);
-	printf("FILE SIZE: %d\n", data_size);
+	// printf("FILE SIZE: %d\n", data_size);
 	
 	int i;
-	long* data = Array_Load_From_File("examples/1K.b", &data_size);
-	printf("Original Array: \n");
-  for(i = 0; i<data_size; i++)
-	{
-		printf("%d: %ld \n", i,data[i]);
-	}
+	long* data = Array_Load_From_File("examples/15.b", &data_size);
+	// printf("Original Array: \n");
+  // for(i = 0; i<data_size; i++)
+	// {
+	// 	printf("%d: %ld \n", i,data[i]);
+	// }
 	printf("\n");
 	int test_size;
 	long* sequence = Generate_2p3q_Seq(data_size,&test_size);
