@@ -63,11 +63,14 @@ Node *List_Shellsort(Node *list, long *n_comp)
     printf("GAP: %d\n", gap);
     list = sort_pass(list, gap, n_comp);
     Node* data = list;
+    int c = 0;
     while(data != NULL)
     {
       //printf("%ld \n", data->value);
+      c++;
       data = data->next; 
     }
+    printf("C elements: %d\n", c);
   }
   free(sequence);
 
@@ -94,18 +97,19 @@ static Node* sort_pass(Node *head, long gap, long *n_comp)
     }
     //printf("vals: %ld, %ld\n", curr1->next->value, curr2->next->value);
     //printf("check 1\n");
-    while(curr2->next!=NULL)
+    while(curr2!=NULL && curr2->next!=NULL)
     {
+      
       //printf("am i stuck\n");
     
       if(curr2->next->value < curr1->next->value)
       {
         *n_comp++;
         //swap elements
-        printf("comparing %ld, %ld\n", curr1->next->value, curr2->next->value);
+        //printf("comparing %ld, %ld\n", curr1->next->value, curr2->next->value);
         if(curr1->next != curr2)
         {
-          printf("hi");
+          //printf("hi");
           Node *tmp1 = curr1->next->next;
           Node *tmp2 = curr2->next->next;
 
@@ -118,7 +122,7 @@ static Node* sort_pass(Node *head, long gap, long *n_comp)
         }
         else
         {
-          printf("here");
+          //printf("here");
 
           Node *tmp1 = curr1->next;
           Node *tmp2 = curr2->next;
