@@ -21,11 +21,11 @@ int main()
 	
 	int i;
 	long* data = Array_Load_From_File("examples/15.b", &data_size);
-	// printf("Original Array: \n");
-  // for(i = 0; i<data_size; i++)
-	// {
-	// 	printf("%d: %ld \n", i,data[i]);
-	// }
+	printf("Original Array: \n");
+  for(i = 0; i<data_size; i++)
+	{
+		printf("%d: %ld \n", i,data[i]);
+	}
 	printf("\n");
 	int test_size;
 	long* sequence = Generate_2p3q_Seq(data_size,&test_size);
