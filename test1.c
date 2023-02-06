@@ -10,7 +10,7 @@ static void free_list(Node* head);
 int main()
 {
   Node* head = NULL;
-  Node * data = List_Load_From_File("examples/100K.b");
+  Node * data = List_Load_From_File("examples/1M.b");
   head = data;
   int count = 0;
   while(data != NULL)
@@ -25,15 +25,8 @@ int main()
   data = List_Shellsort(data, &a);
   head = data;  
   printf("\n\n\n");
-  count = 0;
-  while(data != NULL)
-  {
-    //printf("%d: %ld \n",count, data->value);
-    data = data->next; 
-    count++;
-  }
   data = head;
-  printf("line 35 count: %d\n", count);
+  //printf("line 35 count: %d\n", count);
   int b = List_Save_To_File("testout.b", data);
   printf("Num int stored: %d\n",b);
   free_list(data);
