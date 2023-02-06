@@ -5,17 +5,23 @@
 
 long *Array_Load_From_File(char *filename, int *size)
 {
+	int data_size = 0;
+	FILE *f;
+	f = fopen(filename, "rb");
+	fseek(f,0L, SEEK_END);
+	data_size = ftell(f)/8;
+	fseek(f, 0L, SEEK_SET);
+	fclose(f);
+	*size = data_size;
 	long * data = malloc(sizeof(long) * (*size));
-	
 	FILE *fp;
 	fp = fopen(filename, "rb");
-	fread(data, sizeof(long), *size, fp);
+	if(fread(data, sizeof(long), *size, fp) != *size)
+	{
+		printf("ERROR IN READ\n");
+	}
 	fclose(fp);
-	// printf("Size of data array: %d\n", *size);
-	// for(int i = 0; i<(*size); i++)
-	// {
-	// 	printf("#%d:   %ld\n", i, data[i]);
-	// }
+
 
 	return data;
 }
@@ -46,10 +52,10 @@ void Array_Shellsort(long *array, int size, long *n_comp)
 			temp = array[i];
 			for(j = i; ((j>=gap) && array[j-gap]>temp); j-=gap)
 			{
-				*n_comp += 2;
+				*n_comp += 1;
 				array[j] = array[j-gap];
 			}
-			*n_comp += 2;
+			*n_comp += 1;
 			array[j] = temp;
 		}
 	}

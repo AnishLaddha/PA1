@@ -12,7 +12,6 @@ Node *List_Load_From_File(char *filename)
   FILE * fp;
   long buffer;
   fp = fopen(filename, "rb");
-  int start = 1;
   Node * prev = NULL;
   
   int count = 0;
@@ -25,7 +24,6 @@ Node *List_Load_From_File(char *filename)
     curr = prev;
     count++;
   }
-  printf("Num int read: %d\n", count);
   fclose(fp);
   return curr;
 }
@@ -46,31 +44,27 @@ int List_Save_To_File(char *filename, Node *list)
 
 Node *List_Shellsort(Node *list, long *n_comp)
 {
-  int size = *n_comp;
-  printf("size: %d\n",size);
+  if(list == NULL)
+  {
+    return list;
+  }
+  int size=0;
+  Node* head = NULL;
+  head = list;
+  while(head != NULL)
+  {
+    head = head->next; 
+    size++;
+  }
   *n_comp = 0;
   int seq_size = 0;
 	long *sequence = Generate_2p3q_Seq(size, &seq_size);
-  // for(int i = 0; i<seq_size; i++)
-  // {
-  //   printf("gap_array: %ld\n", sequence[i]);
-  // }
-  //printf("seq_size: %d\n",seq_size);
   int gap;
   for(int i = 0; i<seq_size; i++)
   {
     gap = sequence[i];
-    //printf("GAP: %d\n", gap);
     list = sort_pass(list, gap, n_comp);
-    Node* data = list;
-    // int c = 0;
-    // while(data != NULL)
-    // {
-    //   //printf("%ld \n", data->value);
-    //   c++;
-    //   data = data->next; 
-    // }
-    // printf("C elements: %d\n", c);
+    //Node* data = list;
   }
   free(sequence);
 
@@ -80,7 +74,6 @@ Node *List_Shellsort(Node *list, long *n_comp)
 static Node* sort_pass(Node *head, long gap, long *n_comp)
 {
   int swap;
-  int count_if = 0;
   do
   {
     int count = 0;
@@ -96,23 +89,15 @@ static Node* sort_pass(Node *head, long gap, long *n_comp)
       curr2 = curr2->next;
       count++;
     }
-    count_if++;
-    //printf("vals: %ld, %ld\n", curr1->next->value, curr2->next->value);
-    //int count1 = 0;
+
     while(curr2!=NULL && curr2->next!=NULL)
     {
+      *n_comp += 1;
       if(curr2->next->value < curr1->next->value)
       {
-        //printf("count: %d %d\n",count1, count);
-        *n_comp++;
-        //swap elements
-        //printf("comparing %ld, %ld\n", curr1->next->value, curr2->next->value);
-        //if(curr1->next != curr2)
-        
-        //count_if++;
+
         if(gap != 1)
         {
-          //printf("hi");
           Node *tmp1 = curr1->next->next;
           Node *tmp2 = curr2->next->next;
 
@@ -125,7 +110,6 @@ static Node* sort_pass(Node *head, long gap, long *n_comp)
         }
         else
         {
-          //printf("here");
           Node *tmp1 = curr1->next;
           Node *tmp2 = curr2->next;
           curr1->next = tmp2;
@@ -134,30 +118,16 @@ static Node* sort_pass(Node *head, long gap, long *n_comp)
           
           curr2=tmp2;
         }
-        //printf("--comparing %ld, %ld\n", curr1->next->value, curr2->next->value);
-        //printf("%ld, %ld, %ld, %ld\n", curr1->value, curr2->value,curr1->next->value, curr2->next->value);
-        swap = 1;
-        
+        swap = 1; 
       }
       
 
       curr1 = curr1->next;
       curr2 = curr2->next;
-      //printf("curr2: %ld\n", curr2->value);
     }
-    //printf("start: %ld\n", start->next->value);
     head = start->next;
-    // Node *iter = head;
-    // while(iter != NULL)
-    // {
-    //   printf("GAP: %ld, %ld\n", gap, iter->value);
-    //   iter = iter->next;
-    // }
-    //printf("\n");
     free(start);
-    //printf("swap2: %d\n", swap);
-    //printf("head: %ld\n", head->value);
+
   } while(swap == 1);
-  //printf("do_while_count: %d\n", count_if);
   return head;
 }

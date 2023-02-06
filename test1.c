@@ -10,38 +10,24 @@ static void free_list(Node* head);
 int main()
 {
   Node* head = NULL;
-  Node * data = List_Load_From_File("examples/1M.b");
+  Node * data = List_Load_From_File("examples/1K.b");
   head = data;
-  int count = 0;
-  while(data != NULL)
-  {
-    //printf("%d: %ld \n",count, data->value);
-    data = data->next; 
-    count++;
-  }
-  data = head;
-  long a=count;
-  
+  long a;
   data = List_Shellsort(data, &a);
-  head = data;  
-  printf("\n\n\n");
-  data = head;
-  //printf("line 35 count: %d\n", count);
   int b = List_Save_To_File("testout.b", data);
-  printf("Num int stored: %d\n",b);
   free_list(data);
   
   return 0;
 }
 
 
-static void free_list(Node* head)
+static void free_list(Node* data)
 {
-  Node* data;
-  while(head != NULL)
+  Node* head;
+  while(data != NULL)
   {
-    data = head;
-    head = head->next;
-    free(data);
+    head = data;
+    data = data->next;
+    free(head);
   }
 }
